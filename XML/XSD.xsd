@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- ____________________________ELEMENTOS SIMPLES_____________________________-->
+    <!-- definicion elementos strings-->
+    <xs:simpleType name="strings">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <!-- definicion elemento codigo-->
+    <xs:simpleType name="restriccion">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z a-z]{3}[_]?[0-9]{4}[@#$-_]{0,2}"/>  <!--tres letras, un guion bajo que puede o no estar, cuatro números y dos símbolos o ninguno-->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--definicion elemento fecha-->
+    <xs:simpleType name="year">
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+
+    <!--definicion elemento precio-->
+    <xs:simpleType name="coste">
+        <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+
+    <!--definicion elemento dni-->
+    <xs:simpleType name="document">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{8}[A-Z a-z]{1}"/>  
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--definicion elemento telefono-->
+    <xs:simpleType name="contacto">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{9}"/> 
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--definicion elemento edad-->
+    <xs:simpleType name="hb">
+        <xs:restriction base="xs:positiveInteger"/>
+    </xs:simpleType>
+
+    <!-- ____________________________ELEMENTOS COMPLEJOS_____________________________-->
+    <!-- elemento cliente-->
+    <xs:complexType name="clientetipo">
+        <xs:sequence>
+            <xs:element name="nombre" type="strings"/>
+            <xs:element name="apellido" type="strings" minOccurs="1" maxOccurs="2"/> <!-- puede tener segundo apellido o no-->
+            <xs:element name="dni" type="document"/>
+            <xs:element name="codigo" type="restriccion"/>
+            <xs:element name="telefono" type="contacto"/>
+            <xs:element name="edad" type="hb"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- elemento juego y pelicula-->
+    <xs:element name="juego" type="compra"/>
+    <xs:element name="pelicula" type="compra"/>
+
+    <xs:complexType name="compra">
+        <xs:sequence>
+            <xs:element name="nombre" type="strings"/>
+            <xs:element name="codigo" type="restriccion"/>
+            <xs:element name="fecha" type="year"/>
+            <xs:element name="tipo" type="strings"/>
+            <xs:element name="precio" type="coste"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- elemento general-->
+    <xs:element name="tienda" type="tiendatipo"/>
+
+    <xs:complexType name="tiendatipo">
+        <xs:sequence>
+            <xs:element name="juego" type="compra"/>
+            <xs:element name="pelicula" type="compra"/>
+            <xs:element name="cliente" type="clientetipo"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
