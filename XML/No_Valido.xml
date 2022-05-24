@@ -7,6 +7,7 @@ xsi:noNamespaceSchemaLocation="XSD.xsd">
         <provincias><nombre>Cadiz</nombre>
 
             <poblacion>
+                
                 <fecha>2017-03-21</fecha>
                 <temp_max>40</temp_max>
                 <temp_min>20</temp_min>

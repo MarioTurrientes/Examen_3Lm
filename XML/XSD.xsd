@@ -7,10 +7,27 @@
         <xs:restriction base="xs:string"/>
     </xs:simpleType>
 
-    <!-- definicion elemento codigo-->
-    <xs:simpleType name="restriccion">
+    <!-- definicion elemento temperatura max y min-->
+    <xs:simpleType name="temperatura">
+        <xs:restriction base="xs:int">
+            <xs:pattern value="[0-9]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- definicion elemento lluvia-->
+    <xs:simpleType name="tipolluvia">
         <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Z a-z]{3}[_]?[0-9]{4}[@#$-_]{0,2}"/>  <!--tres letras, un guion bajo que puede o no estar, cuatro números y dos símbolos o ninguno-->
+            <xs:pattern value="[0-9]{2}%{1}"/> 
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- definicion elemento aviso-->
+    <xs:simpleType name="aviso">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Viento"/>
+            <xs:enumeration value="Nieve"/>
+            <xs:enumeration value="Tormentas"/>
+            <xs:enumeration value="Huracan"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -19,65 +36,47 @@
         <xs:restriction base="xs:date"/>
     </xs:simpleType>
 
-    <!--definicion elemento precio-->
-    <xs:simpleType name="coste">
-        <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-
-    <!--definicion elemento dni-->
-    <xs:simpleType name="document">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="[0-9]{8}[A-Z a-z]{1}"/>  
-        </xs:restriction>
-    </xs:simpleType>
-
-    <!--definicion elemento telefono-->
-    <xs:simpleType name="contacto">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="[0-9]{9}"/> 
-        </xs:restriction>
-    </xs:simpleType>
-
-    <!--definicion elemento edad-->
-    <xs:simpleType name="hb">
-        <xs:restriction base="xs:positiveInteger"/>
-    </xs:simpleType>
-
     <!-- ____________________________ELEMENTOS COMPLEJOS_____________________________-->
-    <!-- elemento cliente-->
-    <xs:complexType name="clientetipo">
-        <xs:sequence>
-            <xs:element name="nombre" type="strings"/>
-            <xs:element name="apellido" type="strings" minOccurs="1" maxOccurs="2"/> <!-- puede tener segundo apellido o no-->
-            <xs:element name="dni" type="document"/>
-            <xs:element name="codigo" type="restriccion"/>
-            <xs:element name="telefono" type="contacto"/>
-            <xs:element name="edad" type="hb"/>
-        </xs:sequence>
-    </xs:complexType>
+    <!-- elemento poblacion-->
+    <xs:element name="poblacion" type="tipopoblacion"/>
 
-    <!-- elemento juego y pelicula-->
-    <xs:element name="juego" type="compra"/>
-    <xs:element name="pelicula" type="compra"/>
-
-    <xs:complexType name="compra">
+    <xs:complexType name="tipopoblacion">
         <xs:sequence>
-            <xs:element name="nombre" type="strings"/>
-            <xs:element name="codigo" type="restriccion"/>
+            <xs:element name="nombre" type="strings" minOccurs="0" maxOccurs="1"/>
             <xs:element name="fecha" type="year"/>
-            <xs:element name="tipo" type="strings"/>
-            <xs:element name="precio" type="coste"/>
+            <xs:element name="temp_max" type="temperatura"/>
+            <xs:element name="temp_min" type="temperatura"/>
+            <xs:element name="lluvia" type="tipolluvia"/>
+            <xs:element name="riesgo" type="aviso" minOccurs="0" maxOccurs="10"/> <!-- Pueden existir minimo 0 y maximo 10 como se indica-->
         </xs:sequence>
     </xs:complexType>
 
-    <!-- elemento general-->
-    <xs:element name="tienda" type="tiendatipo"/>
+    <!-- elemento provincias-->
+    <xs:element name="provincias" type="tipoprovincia"/>
 
-    <xs:complexType name="tiendatipo">
+    <xs:complexType name="tipoprovincia">
         <xs:sequence>
-            <xs:element name="juego" type="compra"/>
-            <xs:element name="pelicula" type="compra"/>
-            <xs:element name="cliente" type="clientetipo"/>
+            <xs:element name="nombre" type="strings"/>
+            <xs:element name="poblacion" type="tipopoblacion"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- elemento comunidad-->
+    <xs:element name="comunidad" type="tipocomunidad"/>
+
+    <xs:complexType name="tipocomunidad">
+        <xs:sequence>
+            <xs:element name="nombre" type="strings" minOccurs="1"/> <!--Puede o no existir-->
+            <xs:element name="provincias" type="tipoprovincia"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- elemento general informacion-->
+    <xs:element name="informacion" type="tipoinfo"/>
+
+    <xs:complexType name="tipoinfo">
+        <xs:sequence>
+            <xs:element name="comunidad" type="tipocomunidad"/>
         </xs:sequence>
     </xs:complexType>
 

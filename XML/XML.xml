@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<tiempo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XSD.xsd">
+<informacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="XSD.xsd">
+    <comunidad><nombre>Andalucia</nombre>
 
-    <comunidad>
+        <provincias><nombre>Cadiz</nombre>
+
+            <poblacion>
+                <nombre>Alcobendas</nombre>
+                <fecha>2017-03-21</fecha>
+                <temp_max>40</temp_max>
+                <temp_min>20</temp_min>
+                <lluvia>30%</lluvia>
+                <!-- Se eliminará el aviso porque asi lo indica-->
+            </poblacion>
+
+        </provincias>
         
     </comunidad>
-
-    <provincia>
-
-    </provincia>
-
-</tiempo>
+</informacion>
