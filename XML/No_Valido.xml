@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<informacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="XSD.xsd">
+    <comunidad><nombre>Andalucia</nombre>
+
+        <provincias><nombre>Cadiz</nombre>
+
+            <poblacion>
+                <fecha>2017-03-21</fecha>
+                <temp_max>40</temp_max>
+                <temp_min>20</temp_min>
+                <lluvia>30%</lluvia>
+                <riesgo>Viento</riesgo>
+                <riesgo>Huracan</riesgo>
+            </poblacion>
+
+        </provincias>
+        
+    </comunidad>
+</informacion>
